@@ -28,7 +28,8 @@
         </el-main>
     </el-container>
     <a href="https://beian.mps.gov.cn/#/query/webSearch?code=43010402001517" rel="noreferrer" target="_blank" style="text-decoration: none; color:black">湘公网安备43010402001517</a>
-    <br><img src="./assets/beian.png" width="36" height="40">
+    <br>
+    <img src="./assets/beian.png" width="36" height="40">
     <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color:black">湘ICP备2023030377号-1</a>
 </template>
 
