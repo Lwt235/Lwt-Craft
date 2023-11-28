@@ -1,6 +1,6 @@
 <template>
     <el-main style="height: 500px; width: 1040px">
-        <el-input v-model="num"></el-input>
+        <el-input v-model="num" style="width: 200px;"></el-input>
         <h1>{{ num }}</h1>
         <el-button type="primary" plain @click="numAdd(num)">数字加一</el-button>
     </el-main>
