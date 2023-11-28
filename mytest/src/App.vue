@@ -27,7 +27,7 @@
             <router-view></router-view>
         </el-main>
     </el-container>
-    <a href="https://beian.miit.gov.cn/" target="_blank">湘ICP备2023030377号-1</a>
+    <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color:black">湘ICP备2023030377号-1</a>
 </template>
 
 <script setup>
