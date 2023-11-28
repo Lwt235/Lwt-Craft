@@ -92,8 +92,14 @@ export default {
     mounted() {
         // 监听 resize 方法
         //console.log("App_mounted!");
-        
+        console.log("isLoad:",this.isLoad);
         window.addEventListener("resize", this.renderResize, false)
+        let res = getAuthority();
+        res.then((result)=> {
+            console.log(result,"/mounted!");
+            if(result.code == 1)
+                localStorage.removeItem("token");
+        })
         if (localStorage.getItem("token") != null) {
             this.isLoad = true;
         }
