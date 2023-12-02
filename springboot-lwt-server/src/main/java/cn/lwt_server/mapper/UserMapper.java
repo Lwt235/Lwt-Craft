@@ -1,6 +1,7 @@
 package cn.lwt_server.mapper;
 
 import cn.lwt_server.pojo.Account;
+import cn.lwt_server.pojo.FileMessage;
 import cn.lwt_server.pojo.User;
 import org.apache.ibatis.annotations.*;
 
@@ -33,4 +34,13 @@ public interface UserMapper {
 
     //密码校验
     public Account checkAccount(String name);
+
+    //上传文件后自动拓展文件列表
+    public int addFiles(String name, String url);
+
+    //获取当前所有上传的文件
+    public List<FileMessage> getFileList();
+
+    //删除指定文件
+    public int deleteFile(String url);
 }

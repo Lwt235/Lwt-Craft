@@ -9,6 +9,12 @@
         values (#{id}, #{msg}, #{startTime}, #{endTime}, #{editTime})
     </insert>
 
+    <!--上传文件自动拓展列表-->
+    <insert id="addFiles">
+        insert into mydb.fileList(name, url)
+        values (#{name}, #{url})
+    </insert>
+
     <!--更新-->
     <update id="update">
         update mydb.user
@@ -25,7 +31,9 @@
 
     <!--删除数据-->
     <delete id="delete">
-        delete from mydb.user where id = #{id}
+        delete
+        from mydb.user
+        where id = #{id}
     </delete>
 
     <!--批量删除-->
@@ -34,6 +42,13 @@
         <foreach collection="ids" item="id" separator="," open="(" close=")">
             #{id}
         </foreach>
+    </delete>
+
+    <!--删除指定文件-->
+    <delete id="deleteFile">
+        delete
+        from mydb.fileList
+        where url = #{url}
     </delete>
 
     <!--条件查询-->
@@ -55,15 +70,29 @@
 
     <!--ID查询-->
     <select id="getById" resultType="cn.lwt_server.pojo.User">
-        select * from mydb.user where id = #{id}
+        select *
+        from mydb.user
+        where id = #{id}
     </select>
 
     <!--全查询-->
     <select id="list" resultType="cn.lwt_server.pojo.User">
-        select * from mydb.user
+        select *
+        from mydb.user
     </select>
+
+    <!--检查账号-->
     <select id="checkAccount" resultType="cn.lwt_server.pojo.Account">
-        select * from mydb.account where name = #{name}
+        select *
+        from mydb.account
+        where name = #{name}
+    </select>
+
+
+    <!--获取文件列表-->
+    <select id="getFileList" resultType="cn.lwt_server.pojo.FileMessage">
+        select *
+        from mydb.fileList
     </select>
 
 </mapper>

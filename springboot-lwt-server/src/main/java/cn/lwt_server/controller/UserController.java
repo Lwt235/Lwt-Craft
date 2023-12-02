@@ -4,6 +4,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.lwt_server.mapper.UserMapper;
 import cn.lwt_server.pojo.Account;
+import cn.lwt_server.pojo.FileMessage;
 import cn.lwt_server.pojo.Result;
 import cn.lwt_server.pojo.User;
 import io.jsonwebtoken.Claims;
@@ -219,6 +220,25 @@ public class UserController {
         return JSON.toJSONString(result);
     }
 
+    @DeleteMapping("/deleteFile")
+    private String deleteFile(@RequestHeader("token") String jwt, @RequestParam("url") String url) {
+        Result result;
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey("cuAihCz53DZRjZwbsGcZJ2Ai6At+T142uphtJMsk7iQ=").build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        String Authority = claims.get("authority", String.class);
+        if (Authority.equals("Administrator")) {
+            System.out.println("删除：" + url);
+            userMapper.deleteFile(url);
+            result = new Result(0, "success in delete one item(url=" + url + ")", null);
+        } else {
+            result = new Result(1, "PermissionDenied", null);
+        }
+        return JSON.toJSONString(result);
+
+    }
+
     private static final String ROOT_PATH = System.getProperty("user.dir") + File.separator + "files";
 
     @PostMapping("/upload")
@@ -244,10 +264,19 @@ public class UserController {
             file.transferTo(saveFile);
             String url = "https://lwt-server.cn/api/download/" + originalFilename;
             //String url = "http://localhost:8081/api/download/" + originalFilename;
+            System.out.println("url:"+url);
+            userMapper.addFiles(originalFilename,url);
             result = new Result(0, "success", url);
         } else {
             result = new Result(1,"PermissionDenied",null);
         }
+        return JSON.toJSONString(result);
+    }
+
+    @GetMapping("/getFileList")
+    public String getFileList() {
+        List<FileMessage> fileList = userMapper.getFileList();
+        Result result = new Result(0,"success",JSON.toJSONString(fileList));
         return JSON.toJSONString(result);
     }
 

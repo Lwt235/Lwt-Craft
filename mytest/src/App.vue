@@ -5,7 +5,7 @@
     <!-- </nav> -->
     <!-- <router-view/> -->
     <h1>Lwt的创客空间</h1>
-    <el-container>
+    <el-container style="width: 100vw; height: 80vh">
         <el-aside v-show="isLoad" width="200px" style="background-color: lightblue;">
             <h4>当前权限:{{ Authority }}</h4>
             <el-menu default-active="this.$route.path" router>
@@ -19,6 +19,10 @@
                 <el-menu-item index="/Note"><el-icon>
                         <document />
                     </el-icon>备忘录</el-menu-item>
+                <el-menu-item index="/Upload"><el-icon>
+                        <setting />
+                    </el-icon>上传/下载文件</el-menu-item>
+                
                 <el-button type="danger" round style="margin:20px" @click="exit">登出</el-button>
 
             </el-menu>
@@ -77,9 +81,10 @@ export default {
         }
     },
     created() {
-        console.log("开始监听")
+        //console.log("开始监听")
+        this.isLoad = false;
         this.$bus.on('App', (val) => {
-            console.log("接受")
+            //console.log("接受")
             let res = getAuthority();
             res.then((result) => {
                 this.Authority = result.data;
@@ -96,9 +101,11 @@ export default {
         window.addEventListener("resize", this.renderResize, false)
         let res = getAuthority();
         res.then((result)=> {
-            console.log(result,"/mounted!");
+            //console.log(result,"/mounted!");
             if(result.code == 1)
                 localStorage.removeItem("token");
+            else
+                this.Authority = result.data;
         })
         if (localStorage.getItem("token") != null) {
             this.isLoad = true;

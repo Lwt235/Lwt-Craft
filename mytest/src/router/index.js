@@ -4,6 +4,7 @@ import Note from '../views/project/Note'
 import AddNumber from '../views/project/AddNumber'
 import empty_note from '../views/empty/empty_note'
 import Test from '../views/project/Test'
+import Upload from '../views/project/Upload'
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     path: '/Note',
     name: 'Note',
     component: Note
+  },
+  {
+    path: '/Upload',
+    name: 'Upload',
+    component: Upload
   }
   // {
   //   path: '/dealCenter',

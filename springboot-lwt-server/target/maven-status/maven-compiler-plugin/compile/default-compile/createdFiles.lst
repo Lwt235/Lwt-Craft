@@ -1,10 +1,11 @@
 cn\lwt_server\interceptor\LoginCheckInterceptor.class
 cn\lwt_server\mapper\UserMapper.class
 cn\lwt_server\config\WebConfig.class
-cn\lwt_server\service\impl\UserServiceImpl.class
 cn\lwt_server\pojo\User.class
-cn\lwt_server\pojo\Account.class
+cn\lwt_server\pojo\FileMessage.class
 cn\lwt_server\service\UserService.class
+cn\lwt_server\service\impl\UserServiceImpl.class
+cn\lwt_server\pojo\Account.class
 cn\lwt_server\SpringbootMybatisQuickstartApplication.class
 cn\lwt_server\controller\UserController.class
 cn\lwt_server\pojo\Result.class

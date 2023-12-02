@@ -1,5 +1,5 @@
 <template>
-	<el-container class="layout-container-demo" style="width: 1040px">
+	<el-container class="layout-container-demo" style="height: 100%;">
 		<el-main>
 			<div class="demo-datetime-picker" style="margin-bottom: 20px;">
 				<div class="block" style="display:flex;justify-content: space-between;">
@@ -196,7 +196,7 @@ export default {
 				})
 			}
 			else {
-				console.log(res, '/update');
+				//console.log(res, '/update');
 				this.$router.replace("/empty_note");
 			}
 		}
@@ -221,7 +221,7 @@ export default {
 	mounted() {
 		let res = firstRequest();
 		res.then((result) => {
-			console.log("res:", result);
+			//console.log("res:", result);
 			if (result.code === 1) {
 				this.$router.push({ path: "/" }).then(() => {
 					location.reload()

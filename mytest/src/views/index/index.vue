@@ -1,5 +1,5 @@
 <template>
-    <el-main style="height: 500px; width: 1040px">
+    <el-main style="height: 100%;">
         <h2>欢迎访问本系统，请进行身份校验</h2>
         <div style="margin: 20px;">
             <span style="font-size: 16px; margin-right: 10px">用户名:</span>
@@ -33,14 +33,14 @@ export default {
                 name: this.name,
                 password: this.password
             });
-            console.log(res,"/Check");
+            //console.log(res,"/Check");
             if(res.message === "Success") {
                 ElMessage({
                     showClose: true,
                     message: '登陆成功',
                     type: 'success',
                 })
-                console.log("setToken:",res.data);
+                //console.log("setToken:",res.data);
                 localStorage.setItem("token",res.data);
                 this.Load();
             }
