@@ -53,6 +53,7 @@ result = new Result(1, "Error: missing 'msg' or 'startTime' or 'endTime'", null)
 > Add
 > insert
 > update
+> upload
 > delete
 > deleteByIds
 

@@ -1,5 +1,7 @@
 package cn.lwt_server.controller;
 
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.lwt_server.mapper.UserMapper;
 import cn.lwt_server.pojo.Account;
 import cn.lwt_server.pojo.Result;
@@ -12,6 +14,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api")
@@ -209,5 +217,50 @@ public class UserController {
             result = new Result(1, "PermissionDenied", null);
         }
         return JSON.toJSONString(result);
+    }
+
+    private static final String ROOT_PATH = System.getProperty("user.dir") + File.separator + "files";
+
+    @PostMapping("/upload")
+    public String upload(@RequestHeader("token") String jwt, MultipartFile file) throws IOException {
+        System.out.println("uploading... "+"Path: "+ROOT_PATH);
+        Result result;
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey("cuAihCz53DZRjZwbsGcZJ2Ai6At+T142uphtJMsk7iQ=").build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        String Authority = claims.get("authority", String.class);
+        if (Authority.equals("Administrator")) {
+            String originalFilename = file.getOriginalFilename();
+            String mainName = FileNameUtil.mainName(originalFilename);
+            String extName = FileNameUtil.extName(originalFilename);
+            if (!FileUtil.exist(ROOT_PATH)) {
+                FileUtil.mkdir(ROOT_PATH);
+            }
+            if (FileUtil.exist(ROOT_PATH + "//" + originalFilename)) {
+                originalFilename = System.currentTimeMillis() + "_" + mainName + "." + extName;
+            }
+            File saveFile = new File(ROOT_PATH + "//" + originalFilename);
+            file.transferTo(saveFile);
+            String url = "https://lwt-server.cn/api/download/" + originalFilename;
+            //String url = "http://localhost:8081/api/download/" + originalFilename;
+            result = new Result(0, "success", url);
+        } else {
+            result = new Result(1,"PermissionDenied",null);
+        }
+        return JSON.toJSONString(result);
+    }
+
+    @GetMapping("/download/{fileName}")
+    public void download(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+        String filePath = ROOT_PATH + File.separator + fileName;
+        if(!FileUtil.exist(filePath)) {
+            return;
+        }
+        byte[] bytes = FileUtil.readBytes(filePath);
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(bytes);
+        outputStream.flush();
+        outputStream.close();
     }
 }
