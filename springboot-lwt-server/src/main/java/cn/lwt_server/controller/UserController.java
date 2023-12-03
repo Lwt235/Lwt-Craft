@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/api")
 public class UserController {
 
+    private static final String ROOT_PATH = System.getProperty("user.dir") + File.separator + "files";
     @Autowired
     private UserMapper userMapper;
 
@@ -80,8 +82,29 @@ public class UserController {
                 .parseClaimsJws(jwt)
                 .getBody();
         String Authority = claims.get("authority", String.class);
-        result = new Result(0,"Success",Authority);
+        result = new Result(0, "Success", Authority);
         return JSON.toJSONString(result);
+    }
+
+    @GetMapping("/getFileList")
+    public String getFileList() {
+        List<FileMessage> fileList = userMapper.getFileList();
+        Result result = new Result(0, "success", JSON.toJSONString(fileList));
+        return JSON.toJSONString(result);
+    }
+
+    @GetMapping("/download/{fileName}")
+    public void download(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+        String filePath = ROOT_PATH + File.separator + fileName;
+        if (!FileUtil.exist(filePath)) {
+            return;
+        }
+        byte[] bytes = FileUtil.readBytes(filePath);
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(bytes);
+        outputStream.flush();
+        outputStream.close();
     }
 
     @PostMapping("/checkAccount")
@@ -159,6 +182,38 @@ public class UserController {
         return JSON.toJSONString(result);
     }
 
+    @PostMapping("/upload")
+    public String upload(@RequestHeader("token") String jwt, MultipartFile file) throws IOException {
+        System.out.println("uploading... " + "Path: " + ROOT_PATH);
+        Result result;
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey("cuAihCz53DZRjZwbsGcZJ2Ai6At+T142uphtJMsk7iQ=").build()
+                .parseClaimsJws(jwt)
+                .getBody();
+        String Authority = claims.get("authority", String.class);
+        if (Authority.equals("Administrator")) {
+            String originalFilename = file.getOriginalFilename();
+            String mainName = FileNameUtil.mainName(originalFilename);
+            String extName = FileNameUtil.extName(originalFilename);
+            if (!FileUtil.exist(ROOT_PATH)) {
+                FileUtil.mkdir(ROOT_PATH);
+            }
+            if (FileUtil.exist(ROOT_PATH + "//" + originalFilename)) {
+                originalFilename = System.currentTimeMillis() + "_" + mainName + "." + extName;
+            }
+            File saveFile = new File(ROOT_PATH + "//" + originalFilename);
+            file.transferTo(saveFile);
+            String url = "https://lwt-server.cn/api/download/" + originalFilename;
+            //String url = "http://localhost:8081/api/download/" + originalFilename;
+            System.out.println("url:" + url);
+            userMapper.addFiles(originalFilename, url);
+            result = new Result(0, "success", url);
+        } else {
+            result = new Result(1, "PermissionDenied", null);
+        }
+        return JSON.toJSONString(result);
+    }
+
     @PutMapping("/update")
     private String update(@RequestHeader("token") String jwt, @RequestParam("id") long id, @RequestParam(value = "msg", required = false) String msg, @RequestParam(value = "startTime", required = false) String startTime, @RequestParam(value = "endTime", required = false) String endTime) {
         Result result;
@@ -230,66 +285,18 @@ public class UserController {
         String Authority = claims.get("authority", String.class);
         if (Authority.equals("Administrator")) {
             System.out.println("删除：" + url);
+            String realPath = ROOT_PATH + "/" + url.substring(35);
+            System.out.println("readPath" + realPath);
             userMapper.deleteFile(url);
+            File file = new File(realPath);
+            if (file.isFile() && file.exists()) {
+                file.delete();
+            }
             result = new Result(0, "success in delete one item(url=" + url + ")", null);
         } else {
             result = new Result(1, "PermissionDenied", null);
         }
         return JSON.toJSONString(result);
 
-    }
-
-    private static final String ROOT_PATH = System.getProperty("user.dir") + File.separator + "files";
-
-    @PostMapping("/upload")
-    public String upload(@RequestHeader("token") String jwt, MultipartFile file) throws IOException {
-        System.out.println("uploading... "+"Path: "+ROOT_PATH);
-        Result result;
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey("cuAihCz53DZRjZwbsGcZJ2Ai6At+T142uphtJMsk7iQ=").build()
-                .parseClaimsJws(jwt)
-                .getBody();
-        String Authority = claims.get("authority", String.class);
-        if (Authority.equals("Administrator")) {
-            String originalFilename = file.getOriginalFilename();
-            String mainName = FileNameUtil.mainName(originalFilename);
-            String extName = FileNameUtil.extName(originalFilename);
-            if (!FileUtil.exist(ROOT_PATH)) {
-                FileUtil.mkdir(ROOT_PATH);
-            }
-            if (FileUtil.exist(ROOT_PATH + "//" + originalFilename)) {
-                originalFilename = System.currentTimeMillis() + "_" + mainName + "." + extName;
-            }
-            File saveFile = new File(ROOT_PATH + "//" + originalFilename);
-            file.transferTo(saveFile);
-            String url = "https://lwt-server.cn/api/download/" + originalFilename;
-            //String url = "http://localhost:8081/api/download/" + originalFilename;
-            System.out.println("url:"+url);
-            userMapper.addFiles(originalFilename,url);
-            result = new Result(0, "success", url);
-        } else {
-            result = new Result(1,"PermissionDenied",null);
-        }
-        return JSON.toJSONString(result);
-    }
-
-    @GetMapping("/getFileList")
-    public String getFileList() {
-        List<FileMessage> fileList = userMapper.getFileList();
-        Result result = new Result(0,"success",JSON.toJSONString(fileList));
-        return JSON.toJSONString(result);
-    }
-
-    @GetMapping("/download/{fileName}")
-    public void download(@PathVariable String fileName, HttpServletResponse response) throws IOException {
-        String filePath = ROOT_PATH + File.separator + fileName;
-        if(!FileUtil.exist(filePath)) {
-            return;
-        }
-        byte[] bytes = FileUtil.readBytes(filePath);
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.write(bytes);
-        outputStream.flush();
-        outputStream.close();
     }
 }
