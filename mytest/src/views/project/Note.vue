@@ -31,10 +31,14 @@
 					<template #default="scope">
 
 						<!-- 编辑数据 -->
-						<el-button link size="small" @click="edit(scope.row.id); dialogVisible = true">编辑</el-button>
+						<el-button link @click="edit(scope.row.id); dialogVisible = true"><el-icon>
+								<EditPen />
+							</el-icon></el-button>
 
 						<!-- 删除数据 -->
-						<el-button style="margin-left: 20px;" link size="small" @click="del(scope.row.id)">删除</el-button>
+						<el-button link style="margin-left: 20px;" @click="del(scope.row.id)"><el-icon class="icon-delete">
+								<Delete />
+							</el-icon></el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -82,7 +86,6 @@ const dialogVisible = ref(false)
 </script>
 
 <script>
-//导入我们之前写的接口
 import { firstRequest } from '../../axios/api'
 import { list } from '../../axios/api'
 import { getById } from '../../axios/api'
@@ -92,7 +95,7 @@ import { update } from '../../axios/api'
 import { _delete } from '../../axios/api'
 import { deleteByIds } from '../../axios/api'
 import { timestampToTime } from '../../axios/api';
-import { ElMessageBox, useTransitionFallthroughEmits } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 
 const handleClose = (done) => {
 	ElMessageBox.confirm('放弃编辑?')
@@ -245,5 +248,9 @@ export default {
 
 .dialog-footer button:first-child {
 	margin-right: 10px;
+}
+
+.icon-delete:hover {
+	color: red;
 }
 </style>

@@ -6,7 +6,7 @@ const instance = Axios.create({
 instance.interceptors.request.use((config) => {
 	if (localStorage.getItem("token") != null) {
 		//console.log("getToken:", localStorage.getItem("token"));
-		config.headers.token = localStorage.getItem("token");;
+		config.headers.token = localStorage.getItem("token");
 	}
 	if (config.method === 'post' || config.method === 'put') {
 		//console.log("data:" + config.data)
@@ -24,7 +24,7 @@ instance.interceptors.request.use((config) => {
 })
 
 instance.interceptors.response.use((res) => {
-	console.log('接受的数据',res.data)
+	console.log('接受的数据', res.data)
 	return res.data
 }, err => {
 	return Promise.reject(err)

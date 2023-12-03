@@ -12,9 +12,9 @@ module.exports = {
         changeOrigin: true, //是否跨域
         onProxyRes(proxyRes, req, res) {
           //这里的req.url是经过路径重写后的url
-               const realUrl = new URL(req.url || '', 'http://123.57.30.226:8081')?.href || '';
-               proxyRes.headers['x-real-url1'] = realUrl;
-          },
+          const realUrl = new URL(req.url || '', 'http://123.57.30.226:8081')?.href || '';
+          proxyRes.headers['x-real-url1'] = realUrl;
+        },
         //pathRewrite: { '^/api': '' }
       },
     },
@@ -22,7 +22,7 @@ module.exports = {
   configureWebpack: {
     //关闭 webpack 的性能提示
     performance: {
-      hints:false
+      hints: false
     }
   }
 }

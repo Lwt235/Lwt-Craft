@@ -10,19 +10,24 @@
             <h4>当前权限:{{ Authority }}</h4>
             <el-menu default-active="this.$route.path" router>
 
-                <el-menu-item index="/Test"><el-icon>
-                        <location />
+                <el-menu-item index="/Test">
+                    <el-icon>
+                        <Connection />
                     </el-icon>测试请求</el-menu-item>
                 <el-menu-item index="/AddNumber"><el-icon>
-                        <icon-menu />
+                        <Edit />
                     </el-icon>数字增加</el-menu-item>
-                <el-menu-item index="/Note"><el-icon>
-                        <document />
+                <el-menu-item index="/Note">
+                    <el-icon>
+                        <Calendar />
                     </el-icon>备忘录</el-menu-item>
                 <el-menu-item index="/Upload"><el-icon>
-                        <setting />
+                        <MessageBox />
                     </el-icon>上传/下载文件</el-menu-item>
-                
+                <el-menu-item index="/Community"><el-icon>
+                        <OfficeBuilding />
+                    </el-icon>社区</el-menu-item>
+
                 <el-button type="danger" round style="margin:20px" @click="exit">登出</el-button>
 
             </el-menu>
@@ -34,16 +39,12 @@
     <a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color:black">湘ICP备2023030377号-1</a>
     <br>
     <img src="./assets/beian.png" width="16" height="17.28" style="vertical-align: middle;">
-    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=43010402001517" rel="noreferrer" target="_blank" style="text-decoration: none; color:black">湘公网安备43010402001517</a>
+    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=43010402001517" rel="noreferrer" target="_blank"
+        style="text-decoration: none; color:black">湘公网安备43010402001517</a>
 </template>
 
 <script setup>
-import {
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
-} from '@element-plus/icons-vue'
+
 import { ElMessage } from 'element-plus'
 import { getAuthority } from './axios/api';
 </script>
@@ -94,17 +95,17 @@ export default {
             this.isLoad = val;
             this.$router.replace('/Test');
         })
-        
+
     },
     mounted() {
         // 监听 resize 方法
         //console.log("App_mounted!");
         this.isLoad = false;
-        console.log("isLoad:",this.isLoad);
+        console.log("isLoad:", this.isLoad);
         let res = getAuthority();
-        res.then((result)=> {
+        res.then((result) => {
             //console.log(result,"/mounted!");
-            if(result.code == 1) {
+            if (result.code == 1) {
                 localStorage.removeItem("token");
                 this.isLoad = false;
             } else {
@@ -130,7 +131,7 @@ export default {
                     message: '建议横屏使用哦'
                 })
                 this.screenFlag = false;
-            } else if ( width > height && this._isMobile() && !this.screenFlag ) {
+            } else if (width > height && this._isMobile() && !this.screenFlag) {
                 this.screenFlag = true;
             }
             // 做页面适配

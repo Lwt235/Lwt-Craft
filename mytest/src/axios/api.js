@@ -13,7 +13,7 @@ export const insert = (Data) => request.post('/insert', { msg: Data.msg, startTi
 export const update = (Data) => request.put('/update', { id: Data.id, msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
 export const _delete = (data) => request.delete('/delete', { params: data })
 export const deleteByIds = (data) => request.delete('/deleteByIds', { params: data })
-export const deleteFile = (data) => request.delete('/deleteFile', {params: data})
+export const deleteFile = (data) => request.delete('/deleteFile', { params: data })
 
 export function timestampToTime(timestamp) {
     let date = new Date(timestamp),
