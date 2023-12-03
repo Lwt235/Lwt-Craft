@@ -31,7 +31,7 @@
                 </div>
                 <template #tip>
                 <div class="el-upload__tip">
-                    jpg/png 文件不应超过 1MB
+                    上传的文件不应超过 1MB
                 </div>
                 </template>
             </el-upload>
@@ -101,8 +101,8 @@ export default {
             })
         },
         onHandleFile() {
-            checkAuthority();
-            getFiles();
+            this.checkAuthority();
+            this.getFiles();
         }
     },
     mounted() {

@@ -77,11 +77,13 @@ export default {
     data() {
         return {
             isLoad: false,
+            screenFlag: true,
             Authority: ""
         }
     },
     created() {
         //console.log("开始监听")
+        window.addEventListener("resize", this.renderResize, false);
         this.isLoad = false;
         this.$bus.on('App', (val) => {
             //console.log("接受")
@@ -97,22 +99,19 @@ export default {
     mounted() {
         // 监听 resize 方法
         //console.log("App_mounted!");
+        this.isLoad = false;
         console.log("isLoad:",this.isLoad);
-        window.addEventListener("resize", this.renderResize, false)
         let res = getAuthority();
         res.then((result)=> {
             //console.log(result,"/mounted!");
-            if(result.code == 1)
+            if(result.code == 1) {
                 localStorage.removeItem("token");
-            else
+                this.isLoad = false;
+            } else {
                 this.Authority = result.data;
+                this.isLoad = true;
+            }
         })
-        if (localStorage.getItem("token") != null) {
-            this.isLoad = true;
-        }
-        else {
-            this.isLoad = false;
-        }
     },
     methods: {
         _isMobile() {
@@ -123,13 +122,16 @@ export default {
             // 判断横竖屏
             let width = document.documentElement.clientWidth
             let height = document.documentElement.clientHeight
-            if (width <= height && this._isMobile()) {
+            if (width <= height && this._isMobile() && this.screenFlag) {
                 //alert("建议横屏访问哦");
                 ElMessage({
                     grouping: true,
                     showClose: true,
                     message: '建议横屏使用哦'
                 })
+                this.screenFlag = false;
+            } else if ( width > height && this._isMobile() && !this.screenFlag ) {
+                this.screenFlag = true;
             }
             // 做页面适配
 
