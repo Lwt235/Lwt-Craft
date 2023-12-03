@@ -21,8 +21,8 @@
                 drag
                 action="/api/upload"
                 :headers="{token: userToken}"
-                :on-success="getFiles"
-                :on-progress="checkAuthority"
+                :on-success="onHandleFile"
+                :show-file-list="false"
                 multiple
             >
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
@@ -99,6 +99,10 @@ export default {
                     }
                 }
             })
+        },
+        onHandleFile() {
+            checkAuthority();
+            getFiles();
         }
     },
     mounted() {
