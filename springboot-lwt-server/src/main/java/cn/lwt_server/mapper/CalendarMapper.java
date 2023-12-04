@@ -31,7 +31,4 @@ public interface CalendarMapper {
 
     //批量删除
     int deleteByIds(List<Long> ids);
-
-    //密码校验
-    Account checkAccount(String name);
 }

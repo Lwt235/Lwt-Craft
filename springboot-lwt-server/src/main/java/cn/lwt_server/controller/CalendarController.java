@@ -8,16 +8,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/calendar")
 public class CalendarController {
 
     @Autowired
     public CalendarService calendarService;
-
-    @GetMapping("/firstRequest")
-    public String firstRequest() {
-        return calendarService.firstRequest();
-    }
 
     @GetMapping("/list")
     public String getUser() {
@@ -39,21 +34,6 @@ public class CalendarController {
         if (endTime != null && !endTime.equals(""))
             eTime = Timestamp.valueOf(endTime);
         return calendarService.listBy(msg, sTime, eTime);
-    }
-
-    @GetMapping("/getAuthority")
-    public String getAuthority(@RequestHeader("token") String jwt) {
-        return calendarService.getAuthority(jwt);
-    }
-
-    @PostMapping("/checkAccount")
-    public String checkAccount(@RequestParam("name") String name, @RequestParam("password") String password) {
-        return calendarService.checkAccount(name, password);
-    }
-
-    @PostMapping("/Add")
-    public String Add(@RequestHeader("token") String jwt, @RequestParam("number") int number) {
-        return calendarService.Add(jwt, number);
     }
 
     @PostMapping("/insert")

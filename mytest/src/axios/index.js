@@ -1,7 +1,5 @@
 import Axios from 'axios'
-const instance = Axios.create({
-	baseURL: '/api'
-})
+const instance = Axios.create();
 
 instance.interceptors.request.use((config) => {
 	if (localStorage.getItem("token") != null) {

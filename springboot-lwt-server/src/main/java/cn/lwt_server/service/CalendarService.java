@@ -28,13 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface CalendarService {
-    String firstRequest();
     String getUser();
     String getById(long id);
     String listBy(String msg, Timestamp startTime, Timestamp endTime);
-    String getAuthority(String jwt);
-    String checkAccount(String name, String password);
-    String Add(String jwt, int number);
     String insert(String jwt, String msg, String startTime, String endTime);
     String update(String jwt, long id, String msg, Timestamp startTime, Timestamp endTime);
     String delete(String jwt, long id);

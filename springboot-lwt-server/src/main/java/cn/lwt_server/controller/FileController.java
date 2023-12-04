@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/file")
 public class FileController {
     @Autowired
     public FileService fileService;

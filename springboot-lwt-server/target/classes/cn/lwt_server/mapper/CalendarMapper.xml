@@ -75,11 +75,6 @@
         from mydb.calendar
     </select>
 
-    <!--检查账号-->
-    <select id="checkAccount" resultType="cn.lwt_server.pojo.Account">
-        select *
-        from mydb.account
-        where name = #{name}
-    </select>
+
 
 </mapper>

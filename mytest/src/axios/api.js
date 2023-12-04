@@ -1,19 +1,19 @@
 import request from './index'
 
 //获取用户信息接口
-export const firstRequest = () => request.get('/firstRequest')
-export const list = () => request.get('/list')
-export const getById = (data) => request.get('/getById', { params: data })
-export const listBy = (data) => request.get('/listBy', { params: data })
-export const getAuthority = () => request.get('/getAuthority')
-export const getFileList = () => request.get('/getFileList')
-export const checkAccount = (Data) => request.post('/checkAccount', { name: Data.name, password: Data.password })
-export const Add = (Data) => request.post('/Add', { number: Data })
-export const insert = (Data) => request.post('/insert', { msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
-export const update = (Data) => request.put('/update', { id: Data.id, msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
-export const _delete = (data) => request.delete('/delete', { params: data })
-export const deleteByIds = (data) => request.delete('/deleteByIds', { params: data })
-export const deleteFile = (data) => request.delete('/deleteFile', { params: data })
+export const firstRequest = () => request.get('/basic/firstRequest')
+export const getAuthority = () => request.get('/basic/getAuthority')
+export const list = () => request.get('/calendar/list')
+export const getById = (data) => request.get('/calendar/getById', { params: data })
+export const listBy = (data) => request.get('/calendar/listBy', { params: data })
+export const getFileList = () => request.get('/file/getFileList')
+export const checkAccount = (Data) => request.post('/basic/checkAccount', { name: Data.name, password: Data.password })
+export const Add = (Data) => request.post('/basic/Add', { number: Data })
+export const insert = (Data) => request.post('/calendar/insert', { msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
+export const update = (Data) => request.put('/calendar/update', { id: Data.id, msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
+export const _delete = (data) => request.delete('/calendar/delete', { params: data })
+export const deleteByIds = (data) => request.delete('/calendar/deleteByIds', { params: data })
+export const deleteFile = (data) => request.delete('/file/deleteFile', { params: data })
 
 export function timestampToTime(timestamp) {
     let date = new Date(timestamp),
