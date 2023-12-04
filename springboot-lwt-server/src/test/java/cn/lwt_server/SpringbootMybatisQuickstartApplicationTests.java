@@ -1,19 +1,5 @@
 package cn.lwt_server;
 
-import cn.lwt_server.mapper.UserMapper;
-import cn.lwt_server.pojo.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.sql.Timestamp;
-import java.util.*;
-
 //@SpringBootTest
 class SpringbootMybatisQuickstartApplicationTests {
 

@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notice {
-    private Integer id;
+    private int id;
     private String title;
     private String content;
-    private Integer userId;
+    private int userId;
     private String time;
 }

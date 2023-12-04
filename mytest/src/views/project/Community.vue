@@ -4,7 +4,7 @@
             <template #header>
                 <div class="card-header">
                     <span>鸣谢</span>
-                    <el-button link class="button" text><el-icon>
+                    <el-button link class="button"><el-icon>
                             <More />
                         </el-icon></el-button>
                 </div>
