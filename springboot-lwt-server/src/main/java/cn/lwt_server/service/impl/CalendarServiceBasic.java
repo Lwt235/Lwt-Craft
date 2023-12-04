@@ -1,10 +1,7 @@
 package cn.lwt_server.service.impl;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.file.FileNameUtil;
 import cn.lwt_server.mapper.CalendarMapper;
 import cn.lwt_server.pojo.Account;
-import cn.lwt_server.pojo.FileMessage;
 import cn.lwt_server.pojo.Result;
 import cn.lwt_server.pojo.User;
 import cn.lwt_server.service.CalendarService;
@@ -16,13 +13,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,8 +24,6 @@ import java.util.Map;
 public class CalendarServiceBasic implements CalendarService {
     @Autowired
     private CalendarMapper calendarMapper;
-
-    private static final String ROOT_PATH = System.getProperty("user.dir") + File.separator + "files";
 
     @Override
     public String firstRequest() {
