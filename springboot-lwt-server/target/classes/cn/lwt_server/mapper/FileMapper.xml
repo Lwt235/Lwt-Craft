@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lwt_server.mapper.FileMapper">
+
+    <!--获取文件列表-->
+    <select id="getFileList" resultType="cn.lwt_server.pojo.FileMessage">
+        select *
+        from mydb.file_list
+    </select>
+
+    <!--上传文件自动拓展列表-->
+    <insert id="addFiles">
+        insert into mydb.file_list(name, url)
+        values (#{name}, #{url})
+    </insert>
+
+    <!--删除指定文件-->
+    <delete id="deleteFile">
+        delete
+        from mydb.file_list
+        where url = #{url}
+    </delete>
+
+</mapper>
