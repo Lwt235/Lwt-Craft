@@ -12,6 +12,6 @@ public class Community {
     private String nickname;
     private String avatarPath;
     private String title;
-    private String detailed_information;
-    private String link_path;
+    private String detailedInformation;
+    private String linkPath;
 }

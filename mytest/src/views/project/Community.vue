@@ -14,7 +14,7 @@
                             </el-icon></el-button>
                         </div>
                     </template>
-                    <span>{{ item.title }}</span>
+                    <h2>{{ item.title }}</h2>
                     <div>
                         {{ item.detailedInformation }}
                     </div>
@@ -28,6 +28,7 @@
 <script>
 
 import { firstRequest } from '../../axios/api'
+import { getCommunityList } from '../../axios/api'
 export default {
     name: 'Community',
     data() {
@@ -36,11 +37,16 @@ export default {
         }
     },
     methods: {
-
+        async getList() {
+            let res = await getCommunityList();
+            if(res.code === 0) {
+                console.log(res.data);
+                this.CommunityInformation = JSON.parse(res.data);
+            }
+        }
     },
     created() {
-        this.CommunityInformation.push({ nickname: "Lwt235", avatarPath: "https://lwt-server.cn/file/download/Lwt235.jpg", title: "鸣谢", detailedInformation: "Test" })
-        this.CommunityInformation.push({ nickname: "Lwt235", avatarPath: "https://lwt-server.cn/file/download/Lwt235.jpg", title: "鸣谢", detailedInformation: "Test" })
+        this.getList();
     },
     mounted() {
         let res = firstRequest();
@@ -52,6 +58,7 @@ export default {
                 })
             }
         })
+        
     }
 }
 </script>

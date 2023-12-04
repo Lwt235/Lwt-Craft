@@ -19,6 +19,7 @@ public class CommunityServiceBasic implements CommunityService {
     @Override
     public String list() {
         List<Community> communityList = communityMapper.list();
+        System.out.println(communityList);
         Result result = new Result(0, "Success", JSON.toJSONString(communityList));
         return JSON.toJSONString(result);
     }
