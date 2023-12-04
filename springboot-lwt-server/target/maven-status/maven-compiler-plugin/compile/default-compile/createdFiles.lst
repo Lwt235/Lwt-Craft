@@ -1,11 +1,11 @@
 cn\lwt_server\config\WebConfig.class
-cn\lwt_server\pojo\User.class
 cn\lwt_server\mapper\NoticeMapper.class
 cn\lwt_server\service\impl\CommunityServiceBasic.class
 cn\lwt_server\controller\BasicController.class
 cn\lwt_server\controller\FileController.class
 cn\lwt_server\pojo\Notice.class
 cn\lwt_server\mapper\CommunityMapper.class
+cn\lwt_server\pojo\Calendar.class
 cn\lwt_server\service\CalendarService.class
 cn\lwt_server\controller\CalendarController.class
 cn\lwt_server\pojo\Community.class

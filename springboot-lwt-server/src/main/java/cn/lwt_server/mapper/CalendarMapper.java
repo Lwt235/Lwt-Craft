@@ -1,8 +1,6 @@
 package cn.lwt_server.mapper;
 
-import cn.lwt_server.pojo.Account;
-import cn.lwt_server.pojo.FileMessage;
-import cn.lwt_server.pojo.User;
+import cn.lwt_server.pojo.Calendar;
 import org.apache.ibatis.annotations.*;
 
 import java.sql.Timestamp;
@@ -12,22 +10,22 @@ import java.util.List;
 public interface CalendarMapper {
 
     //全查询
-    List<User> list();
+    List<Calendar> list();
 
     //删除
     int delete(long id);
 
     //插入
-    int insert(User user);
+    int insert(Calendar calendar);
 
     //更新
-    int update(User user);
+    int update(Calendar calendar);
 
     //id查询
-    User getById(long id);
+    Calendar getById(long id);
 
     //条件查询
-    List<User> listBy(String msg, Timestamp startTime, Timestamp endTime);
+    List<Calendar> listBy(String msg, Timestamp startTime, Timestamp endTime);
 
     //批量删除
     int deleteByIds(List<Long> ids);

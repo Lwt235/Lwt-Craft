@@ -15,8 +15,8 @@ public class CalendarController {
     public CalendarService calendarService;
 
     @GetMapping("/list")
-    public String getUser() {
-        return calendarService.getUser();
+    public String getCalendar() {
+        return calendarService.getCalendar();
     }
 
     @GetMapping("/getById")

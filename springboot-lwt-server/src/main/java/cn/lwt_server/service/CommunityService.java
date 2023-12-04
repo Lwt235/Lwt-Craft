@@ -5,5 +5,5 @@ import cn.lwt_server.pojo.Community;
 import java.util.List;
 
 public interface CommunityService {
-    List<Community> list();
+    String list();
 }

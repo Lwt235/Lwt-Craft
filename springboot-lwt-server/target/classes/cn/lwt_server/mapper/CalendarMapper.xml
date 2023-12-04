@@ -46,7 +46,7 @@
     </delete>
 
     <!--条件查询-->
-    <select id="listBy" resultType="cn.lwt_server.pojo.User">
+    <select id="listBy" resultType="cn.lwt_server.pojo.Calendar">
         select * from mydb.calendar
         <where>
             <if test="msg != null">
@@ -63,14 +63,14 @@
     </select>
 
     <!--ID查询-->
-    <select id="getById" resultType="cn.lwt_server.pojo.User">
+    <select id="getById" resultType="cn.lwt_server.pojo.Calendar">
         select *
         from mydb.calendar
         where id = #{id}
     </select>
 
     <!--全查询-->
-    <select id="list" resultType="cn.lwt_server.pojo.User">
+    <select id="list" resultType="cn.lwt_server.pojo.Calendar">
         select *
         from mydb.calendar
     </select>
