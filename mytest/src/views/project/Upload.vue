@@ -21,7 +21,7 @@
         </div>
         <el-divider />
         <div style="height: 210px;">
-            <el-upload drag action="/api/upload" :headers="{ token: userToken }" :on-success="onHandleFile"
+            <el-upload drag action="/file/upload" :headers="{ token: userToken }" :on-success="onHandleFile"
                 :show-file-list="false" multiple>
                 <el-icon class="el-icon--upload"><upload-filled /></el-icon>
                 <div class="el-upload__text">
@@ -120,7 +120,7 @@ export default {
         })
         if (localStorage.getItem("token") != null) {
             this.userToken = localStorage.getItem("token");
-            console.log('token!: ', this.userToken);
+            // console.log('token!: ', this.userToken);
         }
     },
     created() {

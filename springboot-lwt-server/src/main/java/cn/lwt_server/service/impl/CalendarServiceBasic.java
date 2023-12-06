@@ -41,8 +41,6 @@ public class CalendarServiceBasic implements CalendarService {
         return JSON.toJSONString(result);
     }
 
-
-
     @Override
     public String insert(String jwt, String msg, String startTime, String endTime) {
         Result result;
@@ -68,8 +66,6 @@ public class CalendarServiceBasic implements CalendarService {
         }
         return JSON.toJSONString(result);
     }
-
-
 
     @Override
     public String update(String jwt, long id, String msg, Timestamp startTime, Timestamp endTime) {

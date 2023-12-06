@@ -12,6 +12,12 @@ public interface CalendarMapper {
     //全查询
     List<Calendar> list();
 
+    //id查询
+    Calendar getById(long id);
+
+    //条件查询
+    List<Calendar> listBy(String msg, Timestamp startTime, Timestamp endTime);
+
     //删除
     int delete(long id);
 
@@ -20,12 +26,6 @@ public interface CalendarMapper {
 
     //更新
     int update(Calendar calendar);
-
-    //id查询
-    Calendar getById(long id);
-
-    //条件查询
-    List<Calendar> listBy(String msg, Timestamp startTime, Timestamp endTime);
 
     //批量删除
     int deleteByIds(List<Long> ids);

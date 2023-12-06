@@ -11,7 +11,7 @@ export const checkAccount = (Data) => request.post('/basic/checkAccount', { name
 export const list = () => request.get('/calendar/list')
 export const getById = (data) => request.get('/calendar/getById', { params: data })
 export const listBy = (data) => request.get('/calendar/listBy', { params: data })
-export const insert = (Data) => request.post('/calendar/insert', { msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
+export const calendarInsert = (Data) => request.post('/calendar/insert', { msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
 export const update = (Data) => request.put('/calendar/update', { id: Data.id, msg: Data.msg, startTime: Data.startTime, endTime: Data.endTime })
 export const _delete = (data) => request.delete('/calendar/delete', { params: data })
 export const deleteByIds = (data) => request.delete('/calendar/deleteByIds', { params: data })
@@ -22,6 +22,7 @@ export const deleteFile = (data) => request.delete('/file/deleteFile', { params:
 
 //community:
 export const getCommunityList = () => request.get('/community/list')
+export const communityInsert = (Data) => request.post('/community/insert', Data)
 
 export function timestampToTime(timestamp) {
     let date = new Date(timestamp),

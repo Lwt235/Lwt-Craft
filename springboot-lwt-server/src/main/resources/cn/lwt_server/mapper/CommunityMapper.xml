@@ -10,4 +10,33 @@
         from mydb.community
     </select>
 
+    <!--ID查询-->
+    <select id="getById" resultType="cn.lwt_server.pojo.Community">
+        select *
+        from mydb.community
+        where id = #{id}
+    </select>
+
+    <!--插入-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into mydb.community(nickname, avatar_path, title, detailed_information, link_path, time)
+        values (#{nickname}, #{avatarPath}, #{title}, #{detailedInformation}, #{linkPath}, #{time})
+    </insert>
+
+    <!--更新-->
+    <update id="update">
+        update mydb.community
+        <set>
+            <if test="nickname != null">nickname = #{nickname},</if>
+            <if test="avatarPath != null">avatar_path = #{avatarPath},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="detailedInformation != null">detailed_information = #{detailedInformation}</if>
+            <if test="linkPath != null">link_path = #{linkPath},</if>
+            <if test="time != null">time = #{time},</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
 </mapper>

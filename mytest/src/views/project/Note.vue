@@ -80,7 +80,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Calendar, Search, Message } from '@element-plus/icons-vue'
+import { Calendar, Message } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 const dialogVisible = ref(false)
 </script>
@@ -90,7 +90,7 @@ import { firstRequest } from '../../axios/api'
 import { list } from '../../axios/api'
 import { getById } from '../../axios/api'
 import { listBy } from '../../axios/api'
-import { insert } from '../../axios/api'
+import { calendarInsert } from '../../axios/api'
 import { update } from '../../axios/api'
 import { _delete } from '../../axios/api'
 import { deleteByIds } from '../../axios/api'
@@ -145,7 +145,7 @@ export default {
 				return;
 			}
 			//console.log('send:'+this.todomsg+Datetime);
-			let res = await insert({
+			let res = await calendarInsert({
 				msg: this.todoMessage,
 				startTime: this.DateTime[0],
 				endTime: this.DateTime[1]

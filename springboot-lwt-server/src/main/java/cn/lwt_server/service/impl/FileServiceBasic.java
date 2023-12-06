@@ -70,8 +70,8 @@ public class FileServiceBasic implements FileService {
             }
             File saveFile = new File(ROOT_PATH + "//" + originalFilename);
             file.transferTo(saveFile);
-            String url = "https://lwt-server.cn/api/download/" + originalFilename;
-            //String url = "http://localhost:8081/api/download/" + originalFilename;
+            String url = "https://lwt-server.cn/file/download/" + originalFilename;
+            //String url = "http://localhost:8081/file/download/" + originalFilename;
             System.out.println("url:" + url);
             fileMapper.addFiles(originalFilename, url);
             result = new Result(0, "success", url);

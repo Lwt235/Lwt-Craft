@@ -7,11 +7,13 @@ instance.interceptors.request.use((config) => {
 		config.headers.token = localStorage.getItem("token");
 	}
 	if (config.method === 'post' || config.method === 'put') {
-		//console.log("data:" + config.data)
+		
 		let data = ''
 		for (let item in config.data) {
-			if (config.data[item])
-				data += encodeURIComponent(item) + '=' + encodeURIComponent(config.data[item]) + '&'
+			if (config.data[item]) {
+				data += encodeURIComponent(item) + '=' + encodeURIComponent(config.data[item]) + '&';
+				// console.log("data:" + data)
+			}
 		}
 		config.data = data.slice(0, data.length - 1)
 	}
