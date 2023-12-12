@@ -26,6 +26,13 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         String jwt = request.getHeader("token");
 
+        String ssfAddr = request.getHeader("X-Forwarded-For");
+        String realIp = request.getHeader("X-Real-IP");
+        String remoteAddr = request.getRemoteAddr();
+//        System.out.println("X-Forwarded-For: " + ssfAddr);
+//        System.out.println("X-Real-IP: " + realIp);
+//        System.out.println("remoteAddr: " + remoteAddr);
+
         if (!StringUtils.hasLength(jwt)) {
 //            log.info("请求头为空,返回未登录的信息");
 //            System.out.println("请求头为空,返回未登录的信息");

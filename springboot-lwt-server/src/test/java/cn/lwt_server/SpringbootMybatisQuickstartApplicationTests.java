@@ -1,8 +1,42 @@
 package cn.lwt_server;
 
+import cn.lwt_server.mapper.MailMapper;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.sql.Timestamp;
+import java.util.regex.Pattern;
+
 //@SpringBootTest
 class SpringbootMybatisQuickstartApplicationTests {
 
+//    @Autowired
+//    private MailMapper mailMapper;
+//
+//    public static boolean isValidEmail(String email) {
+//        if ((email != null) && (!email.isEmpty())) {
+//            return Pattern.matches("^(\\w+([-.][A-Za-z0-9]+)*){3,18}@\\w+([-.][A-Za-z0-9]+)*\\.\\w+([-.][A-Za-z0-9]+)*$", email);
+//        }
+//        return false;
+//    }
+//
+//    @Test
+//    public void check() {
+//        System.out.println(isValidEmail("m15955295202@qq.com"));
+//    }
+//
+//
+//    public String getTimeDifference(Timestamp startTime, Timestamp endTime) {
+//        long t1 = endTime.getTime();
+//        long t2 = startTime.getTime();
+//        return String.valueOf(t1-t2);
+//    }
+//
+//    @Test
+//    public void timeTest() {
+//        System.out.println(getTimeDifference(Timestamp.valueOf("2023-12-8 13:08:00"), Timestamp.valueOf("2023-12-8 13:09:00")));
+//    }
 //    @Autowired
 //    private UserMapper userMapper;
 //

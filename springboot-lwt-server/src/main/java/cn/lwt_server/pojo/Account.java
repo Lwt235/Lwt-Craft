@@ -13,4 +13,5 @@ public class Account {
     private String name;
     private String password;
     private String authority;
+    private String emailAddress;
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lwt_server.mapper.MailMapper">
+
+    <!--修改密码-->
+    <update id="editAccount">
+        update mydb.account
+        set password = #{password}
+        where email_address = #{email}
+    </update>
+
+    <!--查找验证码-->
+    <select id="getByAddress" resultType="cn.lwt_server.pojo.Mail">
+        select *
+        from mydb.mail
+        where address = #{address}
+    </select>
+
+    <!--检查账号邮箱是否重复-->
+    <select id="isRepeat" resultType="cn.lwt_server.pojo.Account">
+        select *
+        from mydb.account
+        where email_address = #{email}
+    </select>
+
+    <!--插入验证码信息-->
+    <insert id="insert">
+        insert into mydb.mail(address, verifyCode, time)
+        values (#{email}, #{verifyCode}, #{time})
+    </insert>
+
+    <!--添加账号-->
+    <insert id="addAccount">
+        insert into mydb.account(name, password, authority, email_address)
+        values (#{name}, #{password}, #{authority}, #{emailAddress})
+    </insert>
+
+    <!--删除验证码-->
+    <delete id="delete">
+        delete
+        from mydb.mail
+        where address = #{address}
+    </delete>
+
+</mapper>

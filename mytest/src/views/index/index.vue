@@ -1,15 +1,37 @@
 <template>
     <el-main style="height: 100%;">
-        <h2>欢迎访问本系统，请进行身份校验</h2>
+        <h2>欢迎光顾小站，先介绍一下自己吧^.^</h2>
+        <table align="center">
+            <tr>
+                <td>
+                    <span style="font-size: 16px; margin-right: 10px">用户名:</span>
+                </td>
+                <td>
+                    <el-input size="small" v-model="name" placeholder="请输入用户名" style="width:auto; height:30px; font-size:16px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="font-size: 16px; margin-right: 10px">密码:</span>
+                </td>
+                <td>
+                    <el-input type="password" size="small" v-model="password" placeholder="请输入密码" style="width:auto; height:30px; font-size:16px" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td style="display:flex;justify-content:space-around">
+                    <el-button link type="primary" round @click="Question">常见问题</el-button>
+                    <el-button link type="primary" round @click="Reset">忘记密码</el-button>
+                </td>
+            </tr>
+        </table>
+        
         <div style="margin: 20px;">
-            <span style="font-size: 16px; margin-right: 10px">用户名:</span>
-            <el-input size="small" v-model="name" placeholder="请输入用户名" style="width:auto; height:30px; font-size:16px" />
+            <el-button type="primary" round @click="Check">登录</el-button>
+            <el-button type="primary" round @click="this.$router.replace('/Register')">注册</el-button>
         </div>
-        <div style="margin: 20px;">
-            <span style="font-size: 16px; margin-right: 10px">密码:</span>
-            <el-input type="password" size="small" v-model="password" placeholder="请输入密码" style="width:auto; height:30px; font-size:16px" />
-        </div>
-        <el-button type="primary" round @click="Check">登录</el-button>
     </el-main>
 </template>
   
@@ -34,7 +56,7 @@ export default {
                 password: this.password
             });
             //console.log(res,"/Check");
-            if(res.message === "Success") {
+            if(res.code === 0) {
                 ElMessage({
                     showClose: true,
                     message: '登陆成功',
@@ -60,6 +82,12 @@ export default {
                     type: 'error',
                 })
             }
+        },
+        Reset() {
+            this.$router.replace("/Reset");
+        },
+        Question() {
+            this.$router.replace("/Question");
         }
     },
     mounted() {

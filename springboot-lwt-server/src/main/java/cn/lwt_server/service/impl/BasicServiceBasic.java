@@ -45,11 +45,11 @@ public class BasicServiceBasic implements BasicService {
     @Override
     public String checkAccount(String name, String password) {
         Result result;
-        System.out.println("检查：name: " + name + " password: " + password);
+//        System.out.println("检查：name: " + name + " password: " + password);
         Account account = basicMapper.checkAccount(name);
-        System.out.println("accout:"+account);
+//        System.out.println("accout:"+account);
         if (account != null) {
-            System.out.println("返回: |" + account.getPassword() + "| ? |" + password + "|");
+//            System.out.println("返回: |" + account.getPassword() + "| ? |" + password + "|");
             if (account.getPassword().equals(password)) {
 
                 Map<String, Object> claims = new HashMap<>();
@@ -65,7 +65,7 @@ public class BasicServiceBasic implements BasicService {
                         .compact();
 
                 result = new Result(0, "Success", jwt);
-                System.out.println(result);
+//                System.out.println(result);
             } else {
                 result = new Result(1, "WrongPassword", null);
             }

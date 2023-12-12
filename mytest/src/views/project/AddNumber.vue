@@ -19,7 +19,7 @@ export default {
     methods: {
         async numAdd(num) {
             //console.log("num:" + num);
-            let res = await Add(num)
+            let res = await Add({ number: num})
             //console.log(res, "/Add")
             this.num = res.data;
         }

@@ -6,7 +6,7 @@ module.exports = defineConfig({
 module.exports = {
   devServer: {
     proxy: {
-      '/(basic|calendar|file|community)': {
+      '/(basic|calendar|file|community|mail|normalQuestions)': {
         //target 我们要连接的后端地址
         target: 'http://123.57.30.226:8081',
         changeOrigin: true, //是否跨域

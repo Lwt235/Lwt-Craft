@@ -103,9 +103,9 @@
                     <span style="font-size: 16px; margin-right: 10px; width:auto">头像:</span>
                 </td>
                 <td align="left">
-                    <el-upload class="avatar-uploader" ref="upload" :headers="{ token: userToken }" action="/community/upload" list-type="picture"
-                        :show-file-list="false" :auto-upload="false" :on-change="imgSaveToUrl" :on-success="handleSuccess"
-                        :before-upload="beforeUpload">
+                    <el-upload class="avatar-uploader" ref="upload" :headers="{ token: userToken }"
+                        action="/community/upload" list-type="picture" :show-file-list="false" :auto-upload="false"
+                        :on-change="imgSaveToUrl" :on-success="handleSuccess" :before-upload="beforeUpload">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar" style="width: 50px; height: 50px" />
                         <el-icon v-else class="avatar-uploader-icon">
                             <Plus />
@@ -154,6 +154,8 @@
                 </span>
             </template>
         </el-dialog>
+
+        <h3>局域网ip：{{ IP }}</h3>
     </el-main>
 </template>
 
@@ -177,7 +179,8 @@ export default {
             CommunityInformation: [],
             dialogVisible: (false),
             editItem: {},
-            imageUrl: ''
+            imageUrl: '',
+            IP: ''
         }
     },
     methods: {
@@ -261,7 +264,7 @@ export default {
                 return;
             }
             if (!this.editItem.linkPath) {
-                this.editItem.linkPath = "qwe";
+                this.editItem.linkPath = "";
             }
             this.editItem.time = timestampToTime(new Date());
             this.editItem.detailedInformation = this.editor.txt.html();
@@ -278,6 +281,9 @@ export default {
             })
             this.editItem = {};
             this.imageUrl = '';
+            if (res.code === 0) {
+                this.$router.replace("/empty_community");
+			}
         },
         checkAuthority() {
             let res = getAuthority();
@@ -316,6 +322,10 @@ export default {
         if (localStorage.getItem("token") != null) {
             this.userToken = localStorage.getItem("token");
             // console.log('token!: ', this.userToken);
+        }
+        if (localStorage.getItem("x-real-ip") != null) {
+            this.IP = localStorage.getItem("x-real-ip");
+            console.log('IP!: ', this.IP);
         }
     }
 }
